@@ -20,7 +20,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Wille is here working on YOUR next adventure.
+          Wille is here working on YOUR next adventure
         </h1>
 
       </main>
