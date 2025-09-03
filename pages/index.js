@@ -27,7 +27,7 @@ export default function Home() {
       <main className={styles.main}>
 
         <div className={styles.mapContainer}>
-          <h2>Previous Destinations</h2>
+          <h2>Destinations</h2>
           <TourMap />
         </div>
 

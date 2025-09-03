@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
+import Link from 'next/link';
 
 const TourMap = () => {
   const beerIcon = useMemo(() => {
@@ -25,43 +26,69 @@ const TourMap = () => {
       }
       
       .leaflet-popup-content-wrapper {
-        border-radius: 12px;
+        border-radius: 20px;
         padding: 0 !important;
         overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
       
       .leaflet-popup-content {
         margin: 0 !important;
-        font-family: "Aldrich", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
       }
       
       .trip-popup {
         padding: 0;
-        background: white;
-        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
+        border-radius: 20px;
         overflow: hidden;
+        backdrop-filter: blur(20px);
+        position: relative;
+      }
+      
+      .trip-popup::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.05) 0%, rgba(22, 33, 62, 0.1) 100%);
+        pointer-events: none;
       }
       
       .trip-photo {
         width: 100%;
-        height: 150px;
+        height: 180px;
         object-fit: cover;
         display: block;
         margin: 0;
+        position: relative;
+        z-index: 1;
       }
       
       .trip-title {
-        margin: 12px 16px 8px 16px;
-        font-size: 18px;
-        font-weight: bold;
-        color: #02334e;
+        margin: 20px 24px 8px 24px;
+        font-size: 22px;
+        font-weight: 700;
+        background: linear-gradient(135deg, #9ca3af 0%, #6b7280 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        position: relative;
+        z-index: 2;
+        text-align: center;
       }
       
       .trip-year {
-        margin: 0 16px 12px 16px;
-        font-size: 14px;
-        color: #666;
-        font-weight: bold;
+        margin: 0 24px 20px 24px;
+        font-size: 15px;
+        color: #9ca3af;
+        font-weight: 500;
+        position: relative;
+        z-index: 2;
+        text-align: center;
       }
       
       .trip-participants {
@@ -82,16 +109,43 @@ const TourMap = () => {
       }
       
       .participant-tag {
-        background: linear-gradient(135deg, #02334e, #41beaf);
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
         color: white;
         padding: 4px 8px;
         border-radius: 12px;
         font-size: 12px;
         font-weight: normal;
+        border: 1px solid rgba(255, 255, 255, 0.1);
       }
       
       .leaflet-popup-tip {
         background: white;
+      }
+      
+      .trip-link {
+        display: block;
+        background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+        color: #ffffff;
+        padding: 14px 24px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0 24px 24px 24px;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        position: relative;
+        z-index: 2;
+        backdrop-filter: blur(10px);
+      }
+      
+      .trip-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+        color: white;
+        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
       }
     `;
     document.head.appendChild(style);
@@ -142,7 +196,7 @@ const TourMap = () => {
     <MapContainer
       center={centerPosition}
       zoom={6}
-      style={{ height: '60vh', minHeight: '400px', width: '100%' }}
+      style={{ height: '75vh', minHeight: '500px', width: '100%' }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -162,16 +216,9 @@ const TourMap = () => {
               />
               <h3 className="trip-title">{location.name}, {location.country}</h3>
               <p className="trip-year">Year: {location.year}</p>
-              <div className="trip-participants">
-                <strong>Participants:</strong>
-                <div className="participants-list">
-                  {location.participants.map((participant, idx) => (
-                    <span key={idx} className="participant-tag">
-                      {participant}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <Link href={`/trip/${location.name.toLowerCase()}`} className="trip-link">
+                View Trip Details →
+              </Link>
             </div>
           </Popup>
         </Marker>
