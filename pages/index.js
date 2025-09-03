@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Scholander Balkan Tours</title>
+        <title>Ålander Balkan Tours</title>
       </Head>
 
       <header className={styles.header}>
