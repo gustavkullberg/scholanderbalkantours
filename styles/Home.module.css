@@ -4,7 +4,7 @@
 
 .container {
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,5 +70,44 @@
 @media (max-width: 600px) {
   .title {
     font-size: 2.5rem;
+  }
+}
+
+.mapContainer {
+  margin-top: 2rem;
+  width: 95vw;
+  max-width: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mapContainer h2 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+  color: white;
+}
+
+.mapContainer div[style*="height:"] {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 600px) {
+  .mapContainer {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    width: 98vw;
+  }
+  
+  .mapContainer h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 }

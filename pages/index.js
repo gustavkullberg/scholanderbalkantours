@@ -1,6 +1,12 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Link from "next/link";
+import dynamic from 'next/dynamic';
+
+const TourMap = dynamic(() => import('../components/TourMap'), {
+  ssr: false,
+  loading: () => <div>Loading map...</div>
+});
 
 export default function Home() {
   return (
@@ -12,16 +18,18 @@ export default function Home() {
       <header className={styles.header}>
 
         <h1 className={styles.title}>
-          <Link href="/">
-            <a className={styles.link}>Scholander Balkan Tours</a>
+          <Link href="/" className={styles.link}>
+            Ålander Balkan Tours
           </Link>
         </h1>
       </header>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Wille is here working on YOUR next adventure
-        </h1>
+
+        <div className={styles.mapContainer}>
+          <h2>Previous Destinations</h2>
+          <TourMap />
+        </div>
 
       </main>
 
